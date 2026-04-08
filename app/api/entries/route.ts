@@ -3,7 +3,7 @@ import { createClient } from '@supabase/supabase-js'
 // Create the supabase connection
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_KEY!
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
 )
 
 // POST — save a new entry

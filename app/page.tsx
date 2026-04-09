@@ -61,7 +61,7 @@ export default function MeridianPage() {
           --surface:    #131019;
           --surface2:   #1b1625;
           --border:     rgba(138, 100, 220, 0.16);
-          --text:       #eae3f8;
+          --text:       #ebe4faff;
           --text2:      #9485b0;
           --text3:      #50445f;
           --accent:     #9b6dff;
@@ -70,9 +70,9 @@ export default function MeridianPage() {
           --save-hover: rgba(155, 109, 255, 0.20);
         }
         html.light-mode {
-          --bg:         #f4efe6;
-          --surface:    #ece6d9;
-          --surface2:   #e2dace;
+          --bg:         #f7e4c2ff;
+          --surface:    #dbc595ff;
+          --surface2:   #dac5a6ff;
           --border:     rgba(120, 88, 50, 0.18);
           --text:       #2b1f14;
           --text2:      #7a6248;

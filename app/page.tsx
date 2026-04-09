@@ -7,7 +7,6 @@ import ModeToggle from './mode-toggle'
 
 type View = 'landing' | 'journal'
 
-
 export default function MeridianPage() {
   const [view, setView] = useState<View>('landing')
   const [isLight, setIsLight] = useState(false)
@@ -16,13 +15,22 @@ export default function MeridianPage() {
   useEffect(() => {
     setMounted(true)
     const saved = localStorage.getItem('meridian-theme')
-    if (saved === 'light') setIsLight(true)
+    const startLight = saved === 'light'
+    setIsLight(startLight)
+    applyTheme(startLight)
   }, [])
+
+  function applyTheme(light: boolean) {
+    const root = document.documentElement
+    root.classList.toggle('light-mode', light)
+    root.classList.toggle('dark-mode', !light)
+  }
 
   function toggleMode() {
     setIsLight(prev => {
       const next = !prev
       localStorage.setItem('meridian-theme', next ? 'light' : 'dark')
+      applyTheme(next)
       return next
     })
   }
@@ -30,19 +38,14 @@ export default function MeridianPage() {
   if (!mounted) return null
 
   return (
-    <div className={`app-root ${isLight ? 'light-mode' : 'dark-mode'}`}>
-      {/* Ambient background */}
+    <div className="app-root">
       <Blobs isLight={isLight} />
-
-      {/* Mode toggle — always visible */}
       <ModeToggle isLight={isLight} onToggle={toggleMode} />
 
-      {/* Landing — swipes down on enter */}
       <div className={`layer landing-layer ${view === 'landing' ? 'layer-on' : 'layer-off-up'}`}>
         <Landing onEnter={() => setView('journal')} />
       </div>
 
-      {/* Journal — swipes up on enter */}
       <div className={`layer journal-layer ${view === 'journal' ? 'layer-on' : 'layer-off-down'}`}>
         <Journal onExit={() => setView('landing')} />
       </div>
@@ -52,8 +55,8 @@ export default function MeridianPage() {
 
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-        /* ── CSS tokens ── */
-        .dark-mode {
+        /* Tokens on html so body and every child inherits them */
+        html.dark-mode, :root {
           --bg:         #0d0b10;
           --surface:    #131019;
           --surface2:   #1b1625;
@@ -66,7 +69,7 @@ export default function MeridianPage() {
           --save-bg:    rgba(155, 109, 255, 0.10);
           --save-hover: rgba(155, 109, 255, 0.20);
         }
-        .light-mode {
+        html.light-mode {
           --bg:         #f4efe6;
           --surface:    #ece6d9;
           --surface2:   #e2dace;
@@ -80,8 +83,9 @@ export default function MeridianPage() {
           --save-hover: rgba(122, 92, 56, 0.20);
         }
 
-        html, body { height: 100%; overflow: hidden; }
-        body {
+        html, body {
+          height: 100%;
+          overflow: hidden;
           background: var(--bg);
           color: var(--text);
           transition: background 0.5s, color 0.5s;
@@ -94,7 +98,6 @@ export default function MeridianPage() {
           overflow: hidden;
         }
 
-        /* ── Page layers ── */
         .layer {
           position: fixed;
           inset: 0;
@@ -102,7 +105,7 @@ export default function MeridianPage() {
           transition: transform 0.72s cubic-bezier(0.76, 0, 0.24, 1);
           will-change: transform;
         }
-        .layer-on       { transform: translateY(0%); pointer-events: all; }
+        .layer-on       { transform: translateY(0%);    pointer-events: all; }
         .layer-off-up   { transform: translateY(-100%); pointer-events: none; }
         .layer-off-down { transform: translateY(100%);  pointer-events: none; }
       `}</style>

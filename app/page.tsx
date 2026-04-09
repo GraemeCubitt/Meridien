@@ -7,6 +7,7 @@ import ModeToggle from './mode-toggle'
 
 type View = 'landing' | 'journal'
 
+
 export default function MeridianPage() {
   const [view, setView] = useState<View>('landing')
   const [isLight, setIsLight] = useState(false)

@@ -1,36 +1,45 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Meridian — Drop-in Files
 
-## Getting Started
+Four components to replace/add to your Next.js app.
 
-First, run the development server:
+## File map
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+```
+app/
+  page.tsx          ← root page (replace your existing one, or adjust the path)
+  landing.tsx       ← landing page component
+  journal.tsx       ← journal UI (sidebar + editor)
+  blobs.tsx         ← ambient background blobs
+  mode-toggle.tsx   ← dark/light toggle button
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Setup
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+1. **Copy all five files** into your `app/` directory (or wherever your current `page.tsx` lives).
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+2. **Font** — add to your `layout.tsx` `<head>` (or it's imported via CSS in page.tsx automatically):
+   ```html
+   <link rel="preconnect" href="https://fonts.googleapis.com" />
+   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet" />
+   ```
 
-## Learn More
+3. **Your `/api/entries` routes stay exactly the same** — `journal.tsx` calls:
+   - `GET /api/entries` → returns `Entry[]`
+   - `POST /api/entries` with `{ content: string }` body
 
-To learn more about Next.js, take a look at the following resources:
+4. **Theme persists** via `localStorage` key `"meridian-theme"`.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Entry type expected from API
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```ts
+type Entry = {
+  id: string
+  content: string
+  created_at: string  // ISO 8601
+}
+```
 
-## Deploy on Vercel
+## Customisation
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+All colours live as CSS variables in `page.tsx` under `.dark-mode` and `.light-mode`.
+Blob sizes/speeds are in `blobs.tsx` — tweak `animation-duration` and `opacity` to taste.

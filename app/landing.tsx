@@ -1,0 +1,116 @@
+'use client'
+import { useEffect, useRef } from 'react'
+
+interface LandingProps {
+  onEnter: () => void
+}
+
+export default function Landing({ onEnter }: LandingProps) {
+  const btnRef = useRef<HTMLButtonElement>(null)
+
+  useEffect(() => {
+    const btn = btnRef.current
+    if (!btn) return
+    const handleMouseMove = (e: MouseEvent) => {
+      const rect = btn.getBoundingClientRect()
+      const x = ((e.clientX - rect.left) / rect.width) * 100
+      const y = ((e.clientY - rect.top) / rect.height) * 100
+      btn.style.setProperty('--mx', `${x}%`)
+      btn.style.setProperty('--my', `${y}%`)
+    }
+    btn.addEventListener('mousemove', handleMouseMove)
+    return () => btn.removeEventListener('mousemove', handleMouseMove)
+  }, [])
+
+  return (
+    <div className="landing-root">
+      <div className="landing-inner">
+        <div className="wordmark-wrap">
+          <h1 className="wordmark">Meridian</h1>
+          <div className="wordmark-rule" />
+        </div>
+        <p className="tagline">a place to return to yourself</p>
+        <button ref={btnRef} className="enter-btn" onClick={onEnter}>
+          enter
+        </button>
+      </div>
+
+      <style>{`
+        .landing-root {
+          position: fixed;
+          inset: 0;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          z-index: 20;
+        }
+        .landing-inner {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 1.8rem;
+          animation: fadeUp 1.1s cubic-bezier(0.22, 1, 0.36, 1) both;
+        }
+        @keyframes fadeUp {
+          from { opacity: 0; transform: translateY(24px); }
+          to   { opacity: 1; transform: translateY(0); }
+        }
+        .wordmark-wrap { text-align: center; }
+        .wordmark {
+          font-family: 'Cormorant Garamond', Georgia, serif;
+          font-size: clamp(56px, 10vw, 96px);
+          font-weight: 300;
+          letter-spacing: 0.22em;
+          text-transform: uppercase;
+          color: var(--text);
+          line-height: 1;
+          margin: 0;
+        }
+        .wordmark-rule {
+          width: 36px;
+          height: 1px;
+          background: var(--accent);
+          margin: 16px auto 0;
+          opacity: 0.8;
+        }
+        .tagline {
+          font-family: 'Cormorant Garamond', Georgia, serif;
+          font-size: 15px;
+          font-style: italic;
+          font-weight: 300;
+          color: var(--text2);
+          letter-spacing: 0.07em;
+        }
+        .enter-btn {
+          --mx: 50%;
+          --my: 50%;
+          position: relative;
+          overflow: hidden;
+          background: transparent;
+          border: 1px solid var(--accent);
+          color: var(--accent);
+          padding: 0.75rem 3rem;
+          font-family: 'DM Mono', monospace;
+          font-size: 11px;
+          font-weight: 400;
+          letter-spacing: 0.24em;
+          text-transform: uppercase;
+          cursor: pointer;
+          transition: color 0.25s;
+        }
+        .enter-btn::before {
+          content: '';
+          position: absolute;
+          inset: 0;
+          background: radial-gradient(circle at var(--mx) var(--my), var(--accent) 0%, transparent 120%);
+          opacity: 0;
+          transition: opacity 0.3s;
+          z-index: 0;
+        }
+        .enter-btn:hover::before { opacity: 1; }
+        .enter-btn:hover { color: #fff; }
+        .enter-btn span { position: relative; z-index: 1; }
+      `}</style>
+    </div>
+  )
+}

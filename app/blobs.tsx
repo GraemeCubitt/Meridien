@@ -26,7 +26,7 @@ export default function Blobs({ isLight }: BlobsProps) {
           position: fixed;
           inset: 0;
           pointer-events: none;
-          z-index: 0;
+          z-index: -1;
           overflow: hidden;
         }
         .blob {
@@ -39,7 +39,7 @@ export default function Blobs({ isLight }: BlobsProps) {
         /* ── Dark blobs ── */
         .d1 {
           width: 560px; height: 560px;
-          background: radial-gradient(circle, #6b21e8 0%, transparent 68%);
+          background: radial-gradient(circle, #4c1d95 0%, transparent 68%);
           top: -140px; left: -100px;
           opacity: 0.45;
           border-radius: 50%;
@@ -47,7 +47,7 @@ export default function Blobs({ isLight }: BlobsProps) {
         }
         .d2 {
           width: 400px; height: 400px;
-          background: radial-gradient(circle, #9b6dff 0%, transparent 68%);
+          background: radial-gradient(circle, #7c3aed 0%, transparent 68%);
           top: 28%; right: -80px;
           opacity: 0.38;
           border-radius: 50%;
@@ -55,7 +55,7 @@ export default function Blobs({ isLight }: BlobsProps) {
         }
         .d3 {
           width: 320px; height: 320px;
-          background: radial-gradient(circle, #c084fc 0%, transparent 68%);
+          background: radial-gradient(circle, #a855f7 0%, transparent 68%);
           bottom: -90px; left: 28%;
           opacity: 0.32;
           border-radius: 50%;
@@ -63,7 +63,7 @@ export default function Blobs({ isLight }: BlobsProps) {
         }
         .d4 {
           width: 220px; height: 220px;
-          background: radial-gradient(circle, #7c3aed 0%, transparent 68%);
+          background: radial-gradient(circle, #6d28d9 0%, transparent 68%);
           bottom: 22%; left: 8%;
           opacity: 0.28;
           border-radius: 50%;
@@ -73,7 +73,7 @@ export default function Blobs({ isLight }: BlobsProps) {
         /* ── Light blobs — blockier, earthier ── */
         .l1 {
           width: 540px; height: 440px;
-          background: radial-gradient(ellipse, rgba(160,118,68,0.65) 0%, transparent 70%);
+          background: radial-gradient(ellipse, rgba(160,118,68,0.75) 0%, transparent 70%);
           top: -120px; left: -110px;
           opacity: 0.55;
           border-radius: 38% 62% 54% 46% / 52% 48% 60% 40%;
@@ -81,7 +81,7 @@ export default function Blobs({ isLight }: BlobsProps) {
         }
         .l2 {
           width: 380px; height: 280px;
-          background: radial-gradient(ellipse, rgba(190,148,94,0.5) 0%, transparent 70%);
+          background: radial-gradient(ellipse, rgba(190,148,94,0.6) 0%, transparent 70%);
           top: 38%; right: -50px;
           opacity: 0.45;
           border-radius: 62% 38% 48% 52% / 44% 56% 42% 58%;
@@ -89,7 +89,7 @@ export default function Blobs({ isLight }: BlobsProps) {
         }
         .l3 {
           width: 300px; height: 340px;
-          background: radial-gradient(ellipse, rgba(140,98,56,0.45) 0%, transparent 70%);
+          background: radial-gradient(ellipse, rgba(140,98,56,0.55) 0%, transparent 70%);
           bottom: -70px; left: 22%;
           opacity: 0.4;
           border-radius: 44% 56% 62% 38% / 58% 42% 54% 46%;

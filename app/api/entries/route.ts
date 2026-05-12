@@ -1,3 +1,10 @@
+/*
+ * This file defines the API routes for server side interactions with the journal entries. It uses Supabase as 
+ * the backend database to store and retrieve entries. The POST method allows saving a new entry, while the GET 
+ * method fetches all existing entries, ordered by creation date. Error handling is included to ensure proper 
+ * responses in case of issues with the database operations.
+*/
+
 import { createClient } from '@supabase/supabase-js'
 
 // Create the supabase connection

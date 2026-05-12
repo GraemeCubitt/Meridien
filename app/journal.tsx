@@ -1,3 +1,11 @@
+/*
+  * This file implements the main journal interface for the application. It provides a sidebar for listing and
+  * selecting journal entries, and a main pane for writing new entries or reading existing ones. The component
+  * manages state for the current content being written, the list of entries fetched from the server, and the
+  * currently selected entry. It also handles saving new entries to the backend via API calls and fetching
+  * existing entries on mount. The UI is styled with CSS-in-JS
+*/ 
+
 'use client'
 import { useState, useEffect, useRef } from 'react'
 
@@ -5,6 +13,7 @@ type Entry = {
   id: string
   content: string
   created_at: string
+  main_emotion: string | null
 }
 
 interface JournalProps {

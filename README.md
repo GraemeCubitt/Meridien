@@ -1,4 +1,4 @@
-# Meridian — Drop-in Files
+# Meridian 
 
 A fun personal project to learn/develop typescript, Java, CSS, React.
 Deployed using Vercel and supabase, this app is a simple proof of concept design to investigate an intruiging idea : what if your journal could talk back?

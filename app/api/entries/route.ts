@@ -15,7 +15,7 @@ const supabase = createClient(
 
 // POST — save a new entry
 export async function POST(req: Request) {
-  const { content } = await req.json()
+  const { content, main_emotion } = await req.json()
 
   if (!content || content.trim() === '') {
     return Response.json({ error: 'No content provided' }, { status: 400 })
@@ -23,7 +23,9 @@ export async function POST(req: Request) {
 
   const { data, error } = await supabase
     .from('entries')
-    .insert({ content })
+    .insert({ content ,
+      main_emotion: main_emotion || 'Default'
+     })
     .select()
 
   if (error) {
